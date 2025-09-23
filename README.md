@@ -12,40 +12,6 @@ The project provisions:
 - Remote state management using **S3** and optional **DynamoDB** for locking  
 - Separate configurations for **dev, staging, and prod environments**  
 
----
-
-## Project Structure
-project-root/
-├── env/                           # Environment-specific configs
-│   ├── dev/
-│   │   ├── backend.tf             # Backend config for dev state
-│   │   └── dev.tfvars             # Input variables for dev
-│   ├── staging/
-│   │   ├── backend.tf             # Backend config for staging state
-│   │   └── staging.tfvars
-│   └── prod/
-│       ├── backend.tf             # Backend config for prod state
-│       └── prod.tfvars
-│
-├── modules/                       # Reusable modules
-│   └── network/
-│       ├── vpc.tf
-│       ├── subnets.tf
-│       ├── instances.tf
-│       ├── keypair.tf
-│       ├── outputs.tf
-│       └── variables.tf
-│
-├── main.tf                        # Root module wiring everything together
-├── vars.tf                        # Shared variables across environments
-├── outputs.tf                     # Shared outputs
-├── provider.tf                    # AWS provider config
-├── Makefile                       # Commands for init, plan, apply, destroy
-└── .gitignore                     # Ignores SSH keys, Terraform state files, etc.
-
-
----
-
 ## Environments
 - **dev**, **staging**, and **prod** environments are isolated.  
 - Each environment has:  
@@ -85,10 +51,10 @@ ssh -i terraform-hk/ssh-keys/dove-key ubuntu@<public-ip>
 make destroy ENV=dev
 
 ### VPC
-![Vpc](images/terra-hk-vpc.png)
+![image alt](/images/terra-hk-vpc.png)
 
 ### Subnets
-![Subnets](images/terra-hk-subnets.png)
+![Subnets](/images/terra-hk-subnets.png)
 
 ### Instances
-![instances](images/terra-hk-instances.png)
+![instances](/images/terra-hk-instances.png)
