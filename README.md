@@ -50,14 +50,3 @@ ssh -i terraform-hk/ssh-keys/dove-key ubuntu@<public-ip>
 ```bash
 make destroy ENV=dev
 
-### VPC
-
-![](images/terra-hk-vpc.png)
-
-### Subnets
-
-![](images/terra-hk-subnets.png)
-
-### Instances
-
-![](images/terra-hk-instances.png)

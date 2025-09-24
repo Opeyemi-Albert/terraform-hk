@@ -21,3 +21,15 @@ apply:
 # Destroy environment resources
 destroy:
 	terraform destroy -var-file=$(TFVARS)
+
+# Show current Terraform state
+show:
+	terraform show
+
+# Display Terraform outputs for the selected environment
+output:
+	terraform output
+
+# Format Terraform files
+fmt:
+	terraform fmt -recursive

@@ -8,8 +8,28 @@ resource "aws_instance" "public" {
   vpc_security_group_ids      = [aws_security_group.public_sg.id]
   availability_zone           = var.availability_zone
 
-
   tags = { Name = "public-instance" }
+
+  #No 1:Push the web.sh script to the public instance
+  provisioner "file" {
+    source      = var.script_source
+    destination = var.script_destination
+  }
+
+  #No 2: Execute the script on the instance
+  #Step 1: Define how to connect to the instance
+  connection {
+    type        = "ssh"
+    user        = var.webuser
+    private_key = file(var.private_key_path)
+    host        = self.public_ip
+  }
+
+  #Step 2: Run commands on the instance
+  provisioner "remote-exec" {
+  inline = var.remote_exec_commands
+  }
+
 }
 
 # Private Instance
