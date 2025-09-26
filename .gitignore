@@ -43,3 +43,4 @@ id_rsa.*
 
 # ---- Logs ----
 *.log
+*.plan

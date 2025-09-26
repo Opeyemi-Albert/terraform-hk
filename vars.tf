@@ -18,10 +18,12 @@ variable "private_subnet_cidr" {
   type        = string
 }
 
-variable "availability_zone" {
-  description = "AWS availability zone to use (e.g., us-east-1a)"
+variable "ami_id" {
+  description = "Optional AMI ID override (leave empty to use latest Ubuntu AMI dynamically)."
   type        = string
+  default     = "" # empty means 'use data.aws_ami.ubuntu.id'
 }
+
 
 variable "instance_type" {
   description = "EC2 instance type (e.g., t2.micro)"

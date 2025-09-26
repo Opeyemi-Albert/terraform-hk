@@ -1,5 +1,5 @@
 # AMI Data Source to get the latest Ubuntu AMI ID
-data "aws_ami" "amiID" {
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
@@ -15,7 +15,12 @@ data "aws_ami" "amiID" {
   owners = ["099720109477"]
 }
 
+# Fetch available availability zones dynamically
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 output "instance_id" {
   description = "AMI ID of Ubuntu instance"
-  value       = data.aws_ami.amiID.id
+  value       = data.aws_ami.ubuntu.id
 }

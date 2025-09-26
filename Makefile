@@ -27,9 +27,17 @@ show:
 	terraform show
 
 # Display Terraform outputs for the selected environment
-output:
-	terraform output
+outputs:
+	terraform output > infra_outputs.txt
 
 # Format Terraform files
 fmt:
-	terraform fmt -recursive
+	terraform fmt -check
+
+# Validate Terraform configuration
+validate:
+	terraform validate -var-file=$(TFVARS)
+
+# Clean up generated files
+clean:
+	rm -f $(PLAN_FILE) infra_outputs.txt

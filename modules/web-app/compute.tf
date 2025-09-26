@@ -1,12 +1,12 @@
 # Public Instance
 resource "aws_instance" "public" {
-  ami                         = var.image_id[var.region]
+  ami                         = local.final_ami              # data.aws_ami.amiID.id  (from locals.tf)
   instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public.id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.dove_key.key_name
   vpc_security_group_ids      = [aws_security_group.public_sg.id]
-  availability_zone           = var.availability_zone
+  availability_zone           = aws_subnet.public.availability_zone
 
   tags = { Name = "public-instance" }
 
@@ -30,16 +30,20 @@ resource "aws_instance" "public" {
   inline = var.remote_exec_commands
   }
 
+  provisioner "local-exec" {
+    command = "echo ${self.private_ip} > private_ips.txt"
+  }
+
 }
 
 # Private Instance
 resource "aws_instance" "private" {
-  ami                    = var.image_id[var.region]      # data.aws_ami.amiID.id not used here
+  ami                    = local.final_ami                   # data.aws_ami.amiID.id  (from locals.tf)
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.private.id
   key_name               = aws_key_pair.dove_key.key_name
   vpc_security_group_ids = [aws_security_group.private_sg.id]
-  availability_zone      = var.availability_zone
+  availability_zone      = aws_subnet.private.availability_zone
 
   tags = { Name = "private-instance" }
 }
